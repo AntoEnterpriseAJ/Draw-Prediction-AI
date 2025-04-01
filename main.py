@@ -15,10 +15,10 @@ transform = transforms.Compose([
     transforms.Resize((128, 128)),
     transforms.Grayscale(),
     transforms.RandomAffine(
-        degrees=15,                  # Slight rotation
-        translate=(0.1, 0.1),        # Small shift
-        scale=(0.9, 1.1),            # Mild zoom in/out
-        fill=255                     # White background
+        degrees=15,
+        translate=(0.1, 0.1),
+        scale=(0.9, 1.1),
+        fill=255
     ),
     transforms.RandomHorizontalFlip(),
     transforms.ToTensor()
@@ -108,6 +108,12 @@ with torch.no_grad():
                 correct_pred[dataset.classes[label]] += 1
             total_pred[dataset.classes[label]] += 1
 
+total_accuracy = 0
+
 for classname, correct_count in correct_pred.items():
     accuracy = 100 * float(correct_count) / total_pred[classname]
     print(f'Accuracy for class: {classname:5s} is {accuracy:.1f} %')
+
+    total_accuracy += accuracy
+
+print(f"Total accuracy is {total_accuracy / len(dataset.classes):.2f}%")
