@@ -34,8 +34,8 @@ train_data, test_data = random_split(dataset, [train_size, test_size], generator
 print(f'Train dataset size: {len(train_data)}')
 print(f'Test dataset size: {len(test_data)}')
 
-train_loader = DataLoader(train_data, batch_size=64, shuffle=True, num_workers=2, pin_memory=True)
-test_loader = DataLoader(test_data, batch_size=64, shuffle=False, num_workers=2, pin_memory=True)
+train_loader = DataLoader(train_data, batch_size=256, shuffle=True, num_workers=2, pin_memory=True)
+test_loader = DataLoader(test_data, batch_size=256, shuffle=False, num_workers=2, pin_memory=True)
 
 image_tensor, label = train_data[100]
 image = image_tensor.permute(1, 2, 0).numpy()
@@ -49,7 +49,7 @@ model = Model(num_classes=len(dataset.classes)).to(device)
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 
-epochs = 20
+epochs = 40
 for epoch in range(epochs):
     model.train()
     total_loss = 0.0
