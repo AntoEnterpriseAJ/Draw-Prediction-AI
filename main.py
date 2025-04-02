@@ -3,27 +3,17 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader, random_split
 import torch
 import matplotlib.pyplot as plt
-import numpy as np
 import torch.optim as optim
 from model import Model
+from drawing_dataset import DrawingDataset
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 print(f"Using device: {device}")
 
-transform = transforms.Compose([
-    transforms.Resize((128, 128)),
-    transforms.Grayscale(),
-    transforms.RandomAffine(
-        degrees=15,
-        translate=(0.1, 0.1),
-        scale=(0.9, 1.1),
-        fill=255
-    ),
-    transforms.RandomHorizontalFlip(),
-    transforms.ToTensor()
-])
+dataset = DrawingDataset(data_dir='./npydataset/')
 
-dataset = datasets.ImageFolder(root='./dataset/quick_draw_subset/', transform=transform)
+print(dataset[250])
+
 print(f'Dataset size: {len(dataset)}')
 print(f'Dataset classes count: {len(dataset.classes)}')
 
@@ -37,7 +27,7 @@ print(f'Test dataset size: {len(test_data)}')
 train_loader = DataLoader(train_data, batch_size=256, shuffle=True, num_workers=2, pin_memory=True)
 test_loader = DataLoader(test_data, batch_size=256, shuffle=False, num_workers=2, pin_memory=True)
 
-image_tensor, label = train_data[100]
+image_tensor, label = train_data[800]
 image = image_tensor.permute(1, 2, 0).numpy()
 plt.imshow(image, cmap='gray')
 plt.title(f'{dataset.classes[label]}')
