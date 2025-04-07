@@ -4,6 +4,8 @@
 
 A PyTorch-based deep learning project for classifying handwritten digits from the **MNIST dataset**. The project includes a **Gradio interface** that allows users to draw digits and get **real-time predictions**.
 
+https://github.com/user-attachments/assets/18260201-7ac8-4e31-a012-77f3d76aad4d
+
 ---
 
 ## Features
